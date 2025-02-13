@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Image Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        input, select, button { padding: 10px; margin: 5px; }
+        img { width: 300px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Generate a Food Cover Image</h2>
+    <label for="cuisine">Cuisine:</label>
+    <select id="cuisine">
+        <option value="Asian">Asian</option>
+        <option value="Turkish">Turkish</option>
+        <option value="American">American</option>
+    </select>
+
+    <br>
+
+    <label for="menu-items">Menu Items:</label>
+    <input type="text" id="menu-items" placeholder="Enter items, separated by commas">
+
+    <br>
+
+    <button onclick="generateImage()">Generate Image</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function generateImage() {
+            const cuisine = document.getElementById('cuisine').value;
+            const menuItems = document.getElementById('menu-items').value;
+
+            const response = await fetch('/generate-image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cuisine, menuItems })
+            });
+
+            const data = await response.json();
+            const resultDiv = document.getElementById('result');
+
+            if (data.images) {
+                resultDiv.innerHTML = data.images.map(img => `<img src="${img}" alt="Generated Image">`).join('');
+            } else {
+                resultDiv.innerHTML = `<p>${data.error}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
