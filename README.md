@@ -22,3 +22,4 @@ This project is a Node.js application that generates high-resolution cover image
    ```sh
    git clone https://github.com/your-username/food-image-generator.git
    cd food-image-generator
+Service Account is not added. Make sure you have a service account with the role Vertex AI user, Cloud Admin API, Owner, Editor role. 
