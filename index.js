@@ -55,7 +55,7 @@ app.post("/generate-image", async (req, res) => {
         return res.status(400).json({ error: "Cuisine and menu items are required." });
     }
 
-    const prompt = `A high-resolution cover image of delicious ${cuisine} cuisine featuring ${menuItems}.`;
+    const prompt = `A high-resolution cover image with a minimum height of 1053 pixel and minimum width 1440 pixel of delicious ${cuisine} cuisine featuring ${menuItems} and not less than 200KB in size`;
     console.log("Generated Prompt:", prompt);
 
     const PROJECT_ID = process.env.PROJECT_ID;
